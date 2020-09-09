@@ -1,9 +1,16 @@
+//binnenkort zinloos
 var ballSpeedY = 12;
 var ballSpeedX = 12;
 var ballPosX = 100;
 var ballPosY = 100;
-var collisionFix = false;
+
+
+//blok en bal
+const ballRadius = 40;
+var rectLength = 190;
 var rectPos = 500;
+
+//stuiteren
 var hasBounced = false;
 var angleVerandering = 0;
 var bounceCooldown = 0;
@@ -30,20 +37,28 @@ function draw() {
     if (keyIsPressed) {
         if (keyCode === 37 && rectPos >= 70) {
             rectPos -= 10;
-        } else if (keyCode === 39 && rectPos <= 1660) {
+        } else if (keyCode === 39 && rectPos + rectLength <= 1850) {
             rectPos += 10;
+        }
+    }
+
+    ////////test/////////
+    fill(240, 240, 40);
+    for(var i = 0; i < 8; i++) {
+        for(var j = 0; j < 7; j++) {
+            rect(265 + i * 175, 230 + j * 55, 160, 40);
         }
     }
 
     //balk en ball
     fill(255, 0, 0);
-    ellipse(ballPosX, ballPosY, 40, 40);
+    ellipse(ballPosX, ballPosY, ballRadius, ballRadius);
 
     fill(0, 0, 255);
-    rect(rectPos, 960, 190, 25);
+    rect(rectPos, 960, rectLength, 25);
 
     //ball physics
-    if (ballPosX >= rectPos - 20 && ballPosX <= rectPos + 210 && ballPosY >= 950 && ballPosY <= 965 && collisionFix === false) {
+    if (ballPosX >= rectPos - 0.5 * ballRadius && ballPosX <= rectPos + rectLength + 0.5 * ballRadius && ballPosY >= 950 && ballPosY <= 965 && bounceCooldown < 0) {
         ballSpeedY = ballSpeedY * -1;
         bounceCooldown = 3;
         hasBounced = true;
@@ -83,10 +98,11 @@ function draw() {
         } else {
             ballSpeedY = 12 - angleVerandering;
         }
-        
         hasBounced = false;
     }
 
+    //bug fix dingen
+    if(rectPos < 70) {rectPos = 70; }
+    if(rectPos + rectLength > 1850) {rectPos = 1850 - rectLength; }
     bounceCooldown -= 1;
-
 }
