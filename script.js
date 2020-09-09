@@ -4,17 +4,6 @@ var ballSpeedX = 12;
 var ballPosX = 100;
 var ballPosY = 100;
 
-
-//blok en bal
-const ballRadius = 40;
-var rectLength = 190;
-var rectPos = 500;
-
-//stuiteren
-var hasBounced = false;
-var angleVerandering = 0;
-var bounceCooldown = 0;
-
 function setup() {
     createCanvas(1920, 1080);
 }
@@ -42,12 +31,36 @@ function draw() {
         }
     }
 
-    ////////test/////////
-    fill(240, 240, 40);
-    for(var i = 0; i < 8; i++) {
-        for(var j = 0; j < 7; j++) {
-            rect(265 + i * 175, 230 + j * 55, 160, 40);
-        }
+    //bij het beginnen van een nieuwe stage, is dit het algoritme wat de stage maakt
+    if(blokjes.length === 0) {
+        //reset van variabelen
+       currentStage ++;
+       currentLetter = 0;
+       //maximale grootte van stage
+       for(var i = 0; i < 7; i++) {
+           for(var j = 0; j < 8; j++) {
+               //als het een x is slaat ie het over
+                if(level[currentStage - 1].charAt(currentLetter) !== "x") {
+                    //Health Points, bepaalt ook kleur
+                    if(level[currentStage - 1].charAt(currentLetter) === "r") {
+                        newHp = 3;
+                    } else if(level[currentStage - 1].charAt(currentLetter) === "o") {
+                        newHp = 2;
+                    } else {
+                        newHp = 1;
+                    }
+                    //standaard formule voor nieuw blokje
+                    newBlok = new Blok (265 + j * 175, 230 + i * 55, newHp);
+                    blokjes.push(newBlok);
+                }  
+            currentLetter++;
+           }
+       } 
+    }
+
+    //display blokjes die weg gaan
+    for(var i = 0; i < blokjes.length; i++) {
+        blokjes[i].display();
     }
 
     //balk en ball
