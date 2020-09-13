@@ -24,10 +24,10 @@ function draw() {
 
     //controls
     if (keyIsPressed) {
-        if (keyCode === 37 && rectPos >= 70) {
-            rectPos -= 10;
-        } else if (keyCode === 39 && rectPos + rectLength <= 1850) {
-            rectPos += 10;
+        if (keyCode === 37 && rectPos >= 60) {
+            rectPos -= 15;
+        } else if (keyCode === 39 && rectPos + rectLength <= 1860) {
+            rectPos += 15;
         }
     }
 
@@ -63,59 +63,21 @@ function draw() {
         blokjes[i].display();
     }
 
-    //balk en ball
-    fill(255, 0, 0);
-    ellipse(ballPosX, ballPosY, ballRadius, ballRadius);
+    //hier moet ball update komen
 
-    fill(0, 0, 255);
+    //balk
+    fill(255, 0, 255);
     rect(rectPos, 960, rectLength, 25);
 
     //ball physics
-    if (ballPosX >= rectPos - 0.5 * ballRadius && ballPosX <= rectPos + rectLength + 0.5 * ballRadius && ballPosY >= 950 && ballPosY <= 965 && bounceCooldown < 0) {
-        ballSpeedY = ballSpeedY * -1;
-        bounceCooldown = 3;
-        hasBounced = true;
-    } 
-
-    if (ballPosX >= 1840 || ballPosX <= 80) {
-        ballSpeedX = ballSpeedX * -1;
-        hasBounced = true;
-    }
-
-    if (ballPosY <= 80) {
-        ballSpeedY = ballSpeedY * -1;
-        hasBounced = true;
-    }
-
     if (ballPosY >= 1000) {
         textSize(80);
         fill(0, 255, 0);
         text("GAME OVER", 700, 500);
     }
 
-    //ball positite verandering
-    ballPosX += ballSpeedX;
-    ballPosY += ballSpeedY;
-
-    //ball angle verandering
-    if(hasBounced === true) {
-        angleVerandering = round(random(-6, 6));
-        if(ballSpeedX < 0) {
-            ballSpeedX = -1 * (12 + angleVerandering);
-        } else {
-            ballSpeedX = 12 + angleVerandering;
-        }
-
-        if(ballSpeedY < 0) {
-            ballSpeedY = -1 * (12 + angleVerandering);
-        } else {
-            ballSpeedY = 12 - angleVerandering;
-        }
-        hasBounced = false;
-    }
-
     //bug fix dingen
-    if(rectPos < 70) {rectPos = 70; }
-    if(rectPos + rectLength > 1850) {rectPos = 1850 - rectLength; }
+    if(rectPos < 60) {rectPos = 60; }
+    if(rectPos + rectLength > 1860) {rectPos = 1850 - rectLength; }
     bounceCooldown -= 1;
 }

@@ -1,5 +1,4 @@
 //blok en bal
-const ballRadius = 40;
 var rectLength = 190;
 var rectPos = 500;
 
