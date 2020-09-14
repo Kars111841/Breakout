@@ -24,9 +24,9 @@ function draw() {
 
     //controls
     if (keyIsPressed) {
-        if (keyCode === 37 && rectPos >= 60) {
+        if (keyCode === 37 && rectPos >= 75) {
             rectPos -= 15;
-        } else if (keyCode === 39 && rectPos + rectLength <= 1860) {
+        } else if (keyCode === 39 && rectPos + rectLength <= 1855) {
             rectPos += 15;
         }
     }
@@ -85,6 +85,6 @@ function draw() {
 
     //bug fix dingen
     if (rectPos < 60) { rectPos = 60; }
-    if (rectPos + rectLength > 1860) { rectPos = 1850 - rectLength; }
+    if (rectPos + rectLength > 1860) { rectPos = 1860 - rectLength; }
     bounceCooldown -= 1;
 }

@@ -1,6 +1,6 @@
 //blok en bal
 var rectLength = 190;
-var rectPos = 500;
+var rectPos = 930;
 const rectY = 960;
 
 //stuiteren
