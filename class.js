@@ -63,7 +63,7 @@ class Bal {
             if (this.speedY < 0) {
                 this.speedY = -1 * (12 + this.angleVerandering);
             } else {
-                this.speedY = 12 - this.angleVerandering;
+                this.speedY = 12 + this.angleVerandering;
             }
             this.hasBounced = false;
         }

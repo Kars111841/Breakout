@@ -20,7 +20,6 @@ function draw() {
     rect(0, 0, 60, 1080);
     rect(0, 0, 1920, 60);
     rect(1860, 0, 60, 1080);
-    rect(0, 1020, 1920, 60);
 
     //controls
     if (keyIsPressed) {
@@ -67,8 +66,8 @@ function draw() {
         }
     }
 
-    if (balletjes.length === 0) {
-        newBal = new Bal(rectPos + 0.5 * rectLength, rectY - 50, 0, -10);
+    if (balletjes.length < 5) {
+        newBal = new Bal(rectPos + 0.5 * rectLength, rectY - 50, random(-1, 1), -10);
         balletjes.push(newBal);
     }
 
@@ -77,11 +76,19 @@ function draw() {
         balletjes[i].update();
         balletjes[i].display();
         balletjes[i].hitbox();
+        if(balletjes[i].y > 1060) {
+            balletjes.splice(i, 1);
+            i--;
+        }
     }
 
     //balk
     fill(255, 0, 255);
     rect(rectPos, rectY, rectLength, 25);
+
+    //onderste balk
+    fill(128, 128, 128);
+    rect(0, 1020, 1920, 60);
 
     //bug fix dingen
     if (rectPos < 60) { rectPos = 60; }

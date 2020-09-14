@@ -14,8 +14,8 @@ currentStage = 0;
 //setting
 currentLetter = 0;
 newHp = 0;
-newBlok = "";
-newBal = "";
+newBlok = ""; //object
+newBal = ""; //object
 
 //class arrays
 blokjes = [];
@@ -23,6 +23,7 @@ balletjes = [];
 
 //LEVEL DESIGN
 level = ["xggggggxxggggggxxggggggxxggggggxxggggggxxggggggxxxxxxxxx", 
+         "ggxxxxggxggxxggxxxggggxxxooooooxxxggggxxxggxxggxggxxxxgg",
          "xggxxggxxxggggxxxggooggxxgoooogxxggooggxxxggggxxxggxxggx"]
 
 
