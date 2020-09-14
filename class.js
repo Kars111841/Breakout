@@ -25,29 +25,31 @@ class Bal {
         this.y = y;
         this.speedX = speedX;
         this.speedY = speedY;
+        this.hasBounced = false;
+        this.bounceCooldown = 0;
     }
 
     hitbox() {
         //bal op het blok
-        if (this.x >= rectPos - 0.5 * ballRadius && this.x <= rectPos + rectLength + 0.5 * ballRadius && this.y >= 950 && this.y <= 970 && bounceCooldown < 0) {
+        if (this.x >= rectPos - 0.5 * ballRadius && this.x <= rectPos + rectLength + 0.5 * ballRadius && this.y >= rectY - 10 && this.y <= rectY + 10 && this.bounceCooldown < 0) {
             this.speedY = this.speedY * -1;
             bounceCooldown = 3;
-            hasBounced = true;
+            this.hasBounced = true;
         }
 
         //randen
         if (this.x >= 1840 || this.x <= 80) {
             this.speedX = this.speedX * -1;
-            hasBounced = true;
+            this.hasBounced = true;
         }
 
         if (this.y <= 80) {
             this.speedY = this.speedY * -1;
-            hasBounced = true;
+            this.hasBounced = true;
         }
 
         //ball angle verandering
-        if (hasBounced === true) {
+        if (this.hasBounced === true) {
             angleVerandering = round(random(-6, 6));
             if (this.speedX < 0) {
                 this.speedX = -1 * (12 + angleVerandering);
@@ -60,8 +62,9 @@ class Bal {
             } else {
                 this.speedY = 12 - angleVerandering;
             }
-            hasBounced = false;
+            this.hasBounced = false;
         }
+        this.bounceCooldown --;
     }
 
     update() {

@@ -31,53 +31,60 @@ function draw() {
         }
     }
 
+    //display blokjes die weg gaan
+    for (var i = 0; i < blokjes.length; i++) {
+        if (blokjes[i].hp <= 0) {
+            blokjes.splice(i, 1);
+            i--;
+        }
+        blokjes[i].display();
+    }
+
     //bij het beginnen van een nieuwe stage, is dit het algoritme wat de stage maakt
-    if(blokjes.length === 0) {
+    if (blokjes.length === 0) {
         //reset van variabelen
-       currentStage ++;
-       currentLetter = 0;
-       //maximale grootte van stage
-       for(var i = 0; i < 7; i++) {
-           for(var j = 0; j < 8; j++) {
-               //als het een x is slaat ie het over
-                if(level[currentStage - 1].charAt(currentLetter) !== "x") {
+        currentStage++;
+        currentLetter = 0;
+        //maximale grootte van stage
+        for (var i = 0; i < 7; i++) {
+            for (var j = 0; j < 8; j++) {
+                //als het een x is slaat ie het over
+                if (level[currentStage - 1].charAt(currentLetter) !== "x") {
                     //Health Points, bepaalt ook kleur
-                    if(level[currentStage - 1].charAt(currentLetter) === "r") {
+                    if (level[currentStage - 1].charAt(currentLetter) === "r") {
                         newHp = 3;
-                    } else if(level[currentStage - 1].charAt(currentLetter) === "o") {
+                    } else if (level[currentStage - 1].charAt(currentLetter) === "o") {
                         newHp = 2;
                     } else {
                         newHp = 1;
                     }
                     //standaard formule voor nieuw blokje
-                    newBlok = new Blok (265 + j * 175, 230 + i * 55, newHp);
+                    newBlok = new Blok(265 + j * 175, 230 + i * 55, newHp);
                     blokjes.push(newBlok);
-                }  
-            currentLetter++;
-           }
-       } 
+                }
+                currentLetter++;
+            }
+        }
     }
 
-    //display blokjes die weg gaan
-    for(var i = 0; i < blokjes.length; i++) {
-        blokjes[i].display();
+    if (balletjes.length === 0) {
+        newBal = new Bal(rectPos + 0.5 * rectLength, rectY - 50, 0, -10);
+        balletjes.push(newBal);
     }
 
     //hier moet ball update komen
+    for (var i = 0; i < balletjes.length; i++) {
+        balletjes[i].update();
+        balletjes[i].display();
+        balletjes[i].hitbox();
+    }
 
     //balk
     fill(255, 0, 255);
-    rect(rectPos, 960, rectLength, 25);
-
-    //ball physics
-    if (ballPosY >= 1000) {
-        textSize(80);
-        fill(0, 255, 0);
-        text("GAME OVER", 700, 500);
-    }
+    rect(rectPos, rectY, rectLength, 25);
 
     //bug fix dingen
-    if(rectPos < 60) {rectPos = 60; }
-    if(rectPos + rectLength > 1860) {rectPos = 1850 - rectLength; }
+    if (rectPos < 60) { rectPos = 60; }
+    if (rectPos + rectLength > 1860) { rectPos = 1850 - rectLength; }
     bounceCooldown -= 1;
 }
